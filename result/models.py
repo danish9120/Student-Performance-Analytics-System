@@ -7,6 +7,7 @@ class Student(models.Model):
     def __str__(self):
         return self.name
 
+
 class Result(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
     math = models.IntegerField()
@@ -15,3 +16,7 @@ class Result(models.Model):
 
     def percentage(self):
         return (self.math + self.science + self.english) / 3
+
+    def status(self):
+        avg = self.percentage()
+        return "Pass" if avg >= 40 else "Fail"

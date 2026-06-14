@@ -10,45 +10,101 @@
 
 <body class="bg-light">
 
-    <div class="container mt-5">
+<div class="container mt-5">
 
-        <div class="text-center mb-4">
-            <h1>🎓 Student Result Dashboard</h1>
-            <p class="text-muted">Developed by Danish Margoob using Django</p>
-        </div>
+    <div class="text-center mb-4">
+        <h1>🎓 Student Result Dashboard</h1>
+        <p class="text-muted">Developed by Danish Margoob</p>
+    </div>
 
-        <div class="card shadow">
-            <div class="card-body">
+    <div class="row mb-4">
 
-                <table class="table table-striped table-hover">
-                    <thead class="table-dark">
-                        <tr>
-                            <th>Name</th>
-                            <th>Math</th>
-                            <th>Science</th>
-                            <th>English</th>
-                            <th>Percentage</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        {% for result in results %}
-                        <tr>
-                            <td>{{ result.student.name }}</td>
-                            <td>{{ result.math }}</td>
-                            <td>{{ result.science }}</td>
-                            <td>{{ result.english }}</td>
-                            <td>{{ result.percentage|floatformat:2 }}%</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-
-                </table>
-
+        <div class="col-md-4">
+            <div class="card shadow text-center">
+                <div class="card-body">
+                    <h5>Total Students</h5>
+                    <h2>{{ total_students }}</h2>
+                </div>
             </div>
         </div>
 
     </div>
+
+    <form method="GET" class="mb-4">
+        <div class="row">
+
+            <div class="col-md-8">
+                <input
+                    type="text"
+                    name="roll_no"
+                    class="form-control"
+                    placeholder="Search by Roll Number">
+            </div>
+
+            <div class="col-md-4">
+                <button class="btn btn-primary w-100">
+                    Search
+                </button>
+            </div>
+
+        </div>
+    </form>
+
+    <div class="card shadow">
+        <div class="card-body">
+
+            <table class="table table-striped table-hover">
+
+                <thead class="table-dark">
+                    <tr>
+                        <th>Roll No</th>
+                        <th>Name</th>
+                        <th>Math</th>
+                        <th>Science</th>
+                        <th>English</th>
+                        <th>Percentage</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                {% for result in results %}
+                    <tr>
+                        <td>{{ result.student.roll_no }}</td>
+                        <td>{{ result.student.name }}</td>
+                        <td>{{ result.math }}</td>
+                        <td>{{ result.science }}</td>
+                        <td>{{ result.english }}</td>
+                        <td>{{ result.percentage|floatformat:2 }}%</td>
+                        <td>
+                            {% if result.status == "Pass" %}
+                                <span class="badge bg-success">
+                                    Pass
+                                </span>
+                            {% else %}
+                                <span class="badge bg-danger">
+                                    Fail
+                                </span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="7" class="text-center">
+                            No Student Found
+                        </td>
+                    </tr>
+                {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+    </div>
+
+</div>
 
 </body>
 </html>
