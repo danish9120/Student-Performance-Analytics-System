@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Result Dashboard</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-light">
+
+    <div class="container mt-5">
+
+        <div class="text-center mb-4">
+            <h1>🎓 Student Result Dashboard</h1>
+            <p class="text-muted">Developed by Danish Margoob using Django</p>
+        </div>
+
+        <div class="card shadow">
+            <div class="card-body">
+
+                <table class="table table-striped table-hover">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Name</th>
+                            <th>Math</th>
+                            <th>Science</th>
+                            <th>English</th>
+                            <th>Percentage</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for result in results %}
+                        <tr>
+                            <td>{{ result.student.name }}</td>
+                            <td>{{ result.math }}</td>
+                            <td>{{ result.science }}</td>
+                            <td>{{ result.english }}</td>
+                            <td>{{ result.percentage|floatformat:2 }}%</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+
+                </table>
+
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
