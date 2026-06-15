@@ -1,0 +1,74 @@
+<div class="container mt-4">
+
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1>🎓 Student Result Dashboard</h1>
+            <p class="text-muted">Developed by Danish Margoob</p>
+        </div>
+
+        <a href="{% url 'admin:index' %}" class="btn btn-dark btn-lg">
+            Admin Login
+        </a>
+    </div>
+
+    <!-- Total Students Card -->
+    <div class="card shadow-sm mb-4" style="max-width: 400px;">
+        <div class="card-body text-center">
+            <h3>Total Students</h3>
+            <h1>{{ total_students }}</h1>
+        </div>
+    </div>
+
+    <!-- Search Bar -->
+    <form method="GET" class="row mb-4">
+        <div class="col-md-8">
+            <input type="text"
+                   name="roll_no"
+                   class="form-control"
+                   placeholder="Search by Roll Number">
+        </div>
+        <div class="col-md-4">
+            <button type="submit" class="btn btn-primary w-100">
+                Search
+            </button>
+        </div>
+    </form>
+
+    <!-- Student Table -->
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>Roll No</th>
+                    <th>Name</th>
+                    <th>Math</th>
+                    <th>Science</th>
+                    <th>English</th>
+                    <th>Percentage</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for student in students %}
+                <tr>
+                    <td>{{ student.roll_no }}</td>
+                    <td>{{ student.name }}</td>
+                    <td>{{ student.math }}</td>
+                    <td>{{ student.science }}</td>
+                    <td>{{ student.english }}</td>
+                    <td>{{ student.percentage }}%</td>
+                    <td>
+                        {% if student.percentage >= 40 %}
+                            <span class="badge bg-success">Pass</span>
+                        {% else %}
+                            <span class="badge bg-danger">Fail</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</div>
